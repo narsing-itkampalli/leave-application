@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            --primary-blue: #003366;
+            --secondary-blue: #004080;
+            --accent-gold: #FFD700;
+            --light-blue: #e6f2ff;
+            --success-green: #4CAF50;
+            --hover-green: #45a049;
+            --error-red: #f44336;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
+            margin: 0;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 960px;
+            margin: 0 auto;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .add-application-link {
+            text-decoration: none;
+        }
+
+        .add-application {
+            background-color: var(--success-green);
+            color: white;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            min-width: 120px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            width: fit-content;
+        }
+
+        .add-application:hover {
+            background-color: var(--hover-green);
+            transform: translateY(-2px);
+        }
+
+        .add-application::before {
+            content: "+";
+            font-size: 18px;
+        }
+
+        .application-list {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .application-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            border-left: 4px solid;
+        }
+
+        .application-card.pending { border-color: #ff9800; }
+        .application-card.approved { border-color: #4caf50; }
+        .application-card.rejected { border-color: #f44336; }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-transform: capitalize;
+        }
+
+        .status-badge.pending { background: #fff3e0; color: #ff9800; }
+        .status-badge.approved { background: #e8f5e9; color: #4caf50; }
+        .status-badge.rejected { background: #ffebee; color: #f44336; }
+
+        .application-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .application-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .detail-item strong {
+            display: block;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .action-buttons {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-approve { background: #4caf50; color: white; }
+        .btn-reject { background: #f44336; color: white; }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Applications (<%= user.name %> - <%= user.role === 'staff' ? 'Staff' : 'HOI' %>)</h1>
+        <% if (user.role == 'staff') { %>
+            <a href="/apply" class="add-application-link"><button class="add-application">Apply</button></a>
+        <% } %>
+    </div>
+
+    <div class="application-list">
+        <% applications.forEach(application => { %>
+            <div class="application-card <%= application.status %>">
+                <div class="application-header">
+                    <h3><%= application.name %><%= application.department ? ` (${application.department})` : '' %></h3>
+                    <span class="status-badge <%= application.status %>">
+                        <%= application.status %>
+                    </span>
+                </div>
+
+                <div class="application-details">
+                    <div class="detail-item">
+                        <strong>Leave Type</strong>
+                        <%= application.leaveType %>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Duration</strong>
+                        <%= application.numberOfDays %> days
+                        (<%= application.startDate.toDateString() %> - <%= application.endDate.toDateString() %>)
+                    </div>
+                    <div class="detail-item">
+                        <strong>Contact</strong>
+                        <%= application.mobile %>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Address During Leave</strong>
+                        <%= application.address %>
+                    </div>
+                </div>
+
+                <div class="application-details">
+                    <div class="detail-item">
+                        <strong>Reason</strong>
+                        <%= application.reason %>
+                    </div>
+                </div>
+
+                <% if (user.role === 'higherAuthority' && application.status === 'pending') { %>
+                    <div class="action-buttons">
+                        <a href="/approval/<%= application._id %>" class="btn btn-approve">Review Application</a>
+                    </div>
+                <% } %>
+            </div>
+        <% }); %>
+    </div>
+</body>
+
+</html>

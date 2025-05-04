@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leave Application - Office Use</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #fefcea, #f1da36);
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      max-width: 960px;
+      margin: auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      width: 100px;
+      display: block;
+      margin: 0 auto 10px auto;
+    }
+
+    h2 {
+      color: #b8860b;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      text-shadow: 1px 1px #fff;
+    }
+
+    h3 {
+      color: #6b4c00;
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 30px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #5c3d00;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .row>div {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin: 10px 0 20px 0;
+    }
+
+    .button-group label {
+      font-weight: normal;
+      color: #000;
+    }
+
+    button {
+      background-color: #d4a017;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #b8860b;
+    }
+
+    .error-message {
+      margin-top: 12px;
+      color: red;
+    }
+
+    .error-message:empty {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Amity_University_Logo.svg/1200px-Amity_University_Logo.svg.png"
+        alt="Amity University Logo" class="logo">
+      <h2>AMITY UNIVERSITY BENGALURU</h2>
+    </div>
+    <h2>FOR OFFICE USE</h2>
+
+    <form id="approvalForm">
+      <label>Leave Already Availed CL/EL/SL/Any Other:</label>
+      <input type="text" name="leave_availed" value=<%=application.user.pendingLeaves %> disabled>
+
+      <label>Leave due as on:</label>
+      <input type="date" name="leaveDue" value=<%=new Date(application.endDate).toLocaleDateString('en-CA') %>>
+
+      <label>Leave Applied for days:</label>
+      <input type="number" name="leaveApplied" value=<%=application.numberOfDays %>>
+
+      <label>Leave Balance:</label>
+      <input type="text" name="leaveBalance" value=<%=Math.max(0, application.user.pendingLeaves -
+        application.numberOfDays) %>>
+
+      <label>Date:</label>
+      <input type="date" name="officeDate">
+
+      <label>Signature:</label>
+      <input type="text" name="signature">
+
+      <h3>Leave Recommendation</h3>
+      <div class="button-group">
+        <label><input type="radio" name="recommendation" value="1" checked> Recommended</label>
+        <label><input type="radio" name="recommendation" value="0"> Not Recommended</label>
+      </div>
+
+      <label>Date:</label>
+      <input type="date" name="recommendationDate">
+
+      <label>DVC / PVC:</label>
+      <input type="text" name="dvcPvc">
+
+      <h3>Final Approval</h3>
+      <div class="button-group">
+        <label><input type="radio" name="sanctioned" value="1" checked> Sanctioned</label>
+        <label><input type="radio" name="sanctioned" value="0"> Not Sanctioned</label>
+      </div>
+
+      <label>Date:</label>
+      <input type="date" name="sanctionDate">
+
+      <label>Vice Chancellor:</label>
+      <input type="text" name="vc">
+
+      <button type="submit">Submit</button>
+      <div class="error-message" id="approval-error-message"></div>
+    </form>
+  </div>
+
+  <script src="/js/formdata-to-json.js"></script>
+  <script src="/js/approval-form.js"></script>
+</body>
+
+</html>

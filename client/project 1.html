@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leave Application Form</title>
+  <style>
+    :root {
+      --primary-blue: #003366;
+      --secondary-blue: #004080;
+      --accent-gold: #FFD700;
+      --light-blue: #e6f2ff;
+      --success-green: #4CAF50;
+      --hover-green: #45a049;
+      --error-red: #f44336;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
+      margin: 0;
+      padding: 30px;
+      min-height: 100vh;
+    }
+    
+    .container {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      max-width: 960px;
+      margin: 0 auto;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--primary-blue);
+      background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .logo {
+      width: 120px;
+      height: auto;
+      display: block;
+      margin: 0 auto 15px auto;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+    
+    h2 {
+      margin: 10px 0;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    
+    h3 {
+      color: var(--primary-blue);
+      font-weight: 600;
+      font-size: 22px;
+      margin-top: 30px;
+      padding-bottom: 8px;
+      border-bottom: 2px dashed var(--accent-gold);
+    }
+    
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    label {
+      font-weight: 600;
+      color: var(--primary-blue);
+      display: block;
+      margin-bottom: 8px;
+    }
+    
+    input, textarea, select {
+      padding: 12px 15px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 16px;
+      transition: all 0.3s;
+      background-color: #f9f9f9;
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--primary-blue);
+      outline: none;
+      background-color: white;
+      box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    
+    .row {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+    
+    .row > div {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    button {
+      background-color: var(--secondary-blue);
+      color: white;
+      padding: 14px 25px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.3s;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    button:hover {
+      background-color: var(--primary-blue);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+    
+    hr {
+      border: none;
+      border-top: 2px solid var(--accent-gold);
+      margin: 25px 0;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: var(--primary-blue);
+      color: white;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f5f5f5;
+    }
+    
+    tr:hover {
+      background-color: var(--light-blue);
+    }
+    
+    .leave-arrangement {
+      margin-top: 30px;
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #eee;
+    }
+    
+    .leave-arrangement h3 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--primary-blue);
+    }
+    
+    .add-row {
+      background-color: var(--success-green);
+      color: white;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 15px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      width: fit-content;
+    }
+    
+    .add-row:hover {
+      background-color: var(--hover-green);
+      transform: translateY(-2px);
+    }
+    
+    .add-row::before {
+      content: "+";
+      font-size: 18px;
+    }
+    
+    input[type="date"] {
+      position: relative;
+    }
+    
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      background: transparent;
+      bottom: 0;
+      color: transparent;
+      cursor: pointer;
+      height: auto;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: auto;
+    }
+    
+    .required-field::after {
+      content: " *";
+      color: var(--error-red);
+    }
+    
+    @media (max-width: 768px) {
+      .row {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .row > div {
+        width: 100%;
+      }
+      
+      body {
+        padding: 15px;
+      }
+      
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://th.bing.com/th/id/OIP.5593ED22F23BAD62C404E3BBC0A537D89B91D0EF?w=150&h=150&c=7&r=0&o=5&pid=1.7" alt="Amity University Bangalore Logo" class="logo">
+      <h2>AMITY UNIVERSITY BENGALURU</h2>
+      <h2>LEAVE APPLICATION FORM</h2>
+    </div>
+
+    <form id="leaveForm" action="http://localhost:3000/submit-leave" method="POST">
+      <div class="row">
+        <div class="form-group">
+          <label class="required-field">Name</label>
+          <input type="text" name="name" required placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label>Institute/Department</label>
+          <input type="text" name="dept" placeholder="Enter your institute/department">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>Designation</label>
+          <input type="text" name="designation" placeholder="Enter your designation">
+        </div>
+        <div class="form-group">
+          <label>Date of Joining</label>
+          <input type="date" name="doj">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label class="required-field">Mobile No.</label>
+          <input type="tel" name="mobile" required placeholder="Enter your mobile number">
+        </div>
+        <div class="form-group">
+          <label>Employee Code</label>
+          <input type="text" name="empcode" placeholder="Enter your employee code">
+        </div>
+      </div>
+
+      <hr>
+
+      <h3>Leave Details</h3>
+      <div class="row">
+        <div class="form-group">
+          <label class="required-field">Type of Leave</label>
+          <select name="leave_type" required>
+            <option value="" disabled selected>Select leave type</option>
+            <option value="Casual">Casual Leave</option>
+            <option value="Earned">Earned Leave</option>
+            <option value="Sick">Sick Leave</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="required-field">No. of Days</label>
+          <input type="number" name="days" required min="1" placeholder="Enter number of days">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label class="required-field">From Date</label>
+          <input type="date" name="from" required>
+        </div>
+        <div class="form-group">
+          <label class="required-field">To Date</label>
+          <input type="date" name="to" required>
+        </div>
+        <div class="form-group">
+          <label>Prefix</label>
+          <input type="text" name="prefix" placeholder="Prefix (if any)">
+        </div>
+        <div class="form-group">
+          <label>Suffix</label>
+          <input type="text" name="suffix" placeholder="Suffix (if any)">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="required-field">Reason for availing Leave</label>
+        <textarea name="reason" rows="3" required placeholder="Please specify the reason for your leave"></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label class="required-field">Contact No & Address during leave</label>
+        <textarea name="contact" rows="2" required placeholder="Provide contact details where you can be reached during leave"></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label class="required-field">Application Date</label>
+        <input type="date" name="date" required>
+      </div>
+
+      <div class="leave-arrangement">
+        <h3>LEAVE ARRANGEMENT</h3>
+        <button type="button" class="add-row" onclick="addTableRow()">Add Row</button>
+        <table id="arrangementTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Period</th>
+              <th>Room No</th>
+              <th>Time</th>
+              <th>Subject</th>
+              <th colspan="2">Teacher to engage the class</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th>Name</th>
+              <th>Signature</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Initial empty row -->
+            <tr>
+              <td><input type="date" name="arr_date[]"></td>
+              <td><input type="text" name="arr_period[]" placeholder="Period"></td>
+              <td><input type="text" name="arr_room[]" placeholder="Room No"></td>
+              <td><input type="text" name="arr_time[]" placeholder="Time"></td>
+              <td><input type="text" name="arr_subject[]" placeholder="Subject"></td>
+              <td><input type="text" name="arr_teacher[]" placeholder="Teacher Name"></td>
+              <td><input type="text" name="arr_signature[]" placeholder="Signature" disabled></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>Applicant's Signature</label>
+          <input type="text" name="applicant_signature" placeholder="Your signature">
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" name="signature_date">
+        </div>
+      </div>
+
+      <button type="submit">Submit Application</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('leaveForm').addEventListener('submit', function(event) {
+      let isValid = true;
+      const requiredFields = this.querySelectorAll('[required]');
+      
+      requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+          field.style.borderColor = 'var(--error-red)';
+          isValid = false;
+        } else {
+          field.style.borderColor = '';
+        }
+      });
+      
+      if (!isValid) {
+        event.preventDefault();
+        alert("Please fill all required fields marked with *");
+        return false;
+      }
+    });
+
+    function addTableRow() {
+      const table = document.getElementById('arrangementTable').getElementsByTagName('tbody')[0];
+      const newRow = table.insertRow();
+      
+      newRow.innerHTML = `
+        <td><input type="date" name="arr_date[]"></td>
+        <td><input type="text" name="arr_period[]" placeholder="Period"></td>
+        <td><input type="text" name="arr_room[]" placeholder="Room No"></td>
+        <td><input type="text" name="arr_time[]" placeholder="Time"></td>
+        <td><input type="text" name="arr_subject[]" placeholder="Subject"></td>
+        <td><input type="text" name="arr_teacher[]" placeholder="Teacher Name"></td>
+        <td><input type="text" name="arr_signature[]" placeholder="Signature" disabled></td>
+      `;
+    }
+    
+    // Highlight required fields on blur if empty
+    document.querySelectorAll('[required]').forEach(field => {
+      field.addEventListener('blur', function() {
+        if (!this.value.trim()) {
+          this.style.borderColor = 'var(--error-red)';
+        } else {
+          this.style.borderColor = '';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
