@@ -8,7 +8,8 @@
         e.preventDefault();
         const data = {
             email: username.value,
-            password: password.value
+            password: password.value,
+            role: 'staff'
         };
 
         errorMessage.innerText = '';
@@ -43,8 +44,32 @@
 
     submitBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        if (username.value && password.value) {
-            location.href = './project2.html';
+        const data = {
+            email: username.value,
+            password: password.value,
+            role: 'higherAuthority'
+        };
+
+        errorMessage.innerText = '';
+
+        if(!data.email || !data.password) {
+            return;
         }
+
+        fetch('/auth/login', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(res => {
+            return res.json();
+        }).then((data) => {
+            if(!data.ok) {
+                errorMessage.innerText = data.message;
+            }else {
+                location.replace('/');
+            }
+        })
     });
 })();

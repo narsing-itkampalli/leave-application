@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Leave Applications</title>
     <style>
         :root {
             --primary-blue: #003366;
@@ -38,6 +38,36 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header__right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-link {
+            text-decoration: none;
+        }
+
+        .logout-btn {
+            background-color: var(--error-red);
+            color: white;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            min-width: 80px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            width: fit-content;
+            height: 40px;
         }
 
         .add-application-link {
@@ -60,6 +90,7 @@
             justify-content: center;
             gap: 5px;
             width: fit-content;
+            height: 40px;
         }
 
         .add-application:hover {
@@ -147,9 +178,12 @@
 <body>
     <div class="header">
         <h1>Applications (<%= user.name %> - <%= user.role === 'staff' ? 'Staff' : 'HOI' %>)</h1>
-        <% if (user.role == 'staff') { %>
-            <a href="/apply" class="add-application-link"><button class="add-application">Apply</button></a>
-        <% } %>
+        <div class="header__right">
+            <% if (user.role == 'staff') { %>
+                <a href="/apply" class="add-application-link"><button class="add-application">Apply</button></a>
+            <% } %>
+            <a href="/auth/logout" class="logout-link"><button class="logout-btn">Logout</button></a>
+        </div>
     </div>
 
     <div class="application-list">
