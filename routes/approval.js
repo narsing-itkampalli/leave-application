@@ -9,7 +9,6 @@ router.get('/:id', (req, res) => {
     Application.findById(req.params.id)
         .populate('user')
         .then(application => {
-            console.log(application);
             res.render('approval-form', { application })
         })
         .catch(() => res.redirect('/'));
