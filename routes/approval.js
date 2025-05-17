@@ -18,7 +18,7 @@ router.post('/:id', async (req, res) => {
     try {
         const application = await Application.findByIdAndUpdate(
             req.params.id,
-            { status: req.body.sanctioned ? 'approved' : 'rejected' },
+            { status: req.body.sanctioned == '1' ? 'approved' : 'rejected' },
             { new: true }
         );
 
